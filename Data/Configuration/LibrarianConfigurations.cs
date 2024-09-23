@@ -8,20 +8,14 @@ namespace LibraryManagementSystemEF.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Librarian> builder)
         {
-            builder.HasKey(l => l.Id);
 
-            builder.Property(l => l.Email).IsRequired();
+            builder.Property(l => l.Salary).IsRequired();
 
-            builder.Property(l => l.Name).IsRequired().HasColumnType("VARCHAR").HasMaxLength(100);
-
-            builder.Property(l => l.Password).IsRequired().HasColumnType("VARCHAR").HasMaxLength(30);
-
-            builder.HasIndex(l => l.Email).IsUnique();
 
             builder.HasData(
                 new Librarian
                 {
-                    Id = 1,
+                    Id = 8,
                     Name = "Ahmed Smith",
                     Email = "ahmedSmith@exmaple.com",
                     Password = "ahmed123",

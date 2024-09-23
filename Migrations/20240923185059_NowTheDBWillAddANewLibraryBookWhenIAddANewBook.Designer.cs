@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryManagementSystemEF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240923111334_AddedLibrarianEntity")]
-    partial class AddedLibrarianEntity
+    [Migration("20240923185059_NowTheDBWillAddANewLibraryBookWhenIAddANewBook")]
+    partial class NowTheDBWillAddANewLibraryBookWhenIAddANewBook
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,83 +24,6 @@ namespace LibraryManagementSystemEF.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("LibraryManagementSystemEF.Entities.Author", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Biography")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("VARCHAR");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("VARCHAR");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("VARCHAR");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.ToTable("Authors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Biography = "Author One Biography",
-                            Email = "AuthorOne@exmaple.com",
-                            Name = "Author One",
-                            Password = "password"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Biography = "Author Two Biography",
-                            Email = "AuthorTwo@exmaple.com",
-                            Name = "Author Two",
-                            Password = "password"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Biography = "Author Three Biography",
-                            Email = "AuthorThree@exmaple.com",
-                            Name = "Author Three",
-                            Password = "password"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Biography = "Author Four Biography",
-                            Email = "AuthorFour@exmaple.com",
-                            Name = "Author Four",
-                            Password = "password"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Biography = "Author Five Biography",
-                            Email = "AuthorFive@exmaple.com",
-                            Name = "Author Five",
-                            Password = "password"
-                        });
-                });
 
             modelBuilder.Entity("LibraryManagementSystemEF.Entities.Book", b =>
                 {
@@ -189,7 +112,7 @@ namespace LibraryManagementSystemEF.Migrations
                     b.Property<DateTime>("BorrowDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 9, 23, 14, 13, 33, 472, DateTimeKind.Local).AddTicks(1467));
+                        .HasDefaultValue(new DateTime(2024, 9, 23, 21, 50, 59, 125, DateTimeKind.Local).AddTicks(4161));
 
                     b.Property<string>("GenreSnapshot")
                         .IsRequired()
@@ -222,32 +145,6 @@ namespace LibraryManagementSystemEF.Migrations
                     b.HasIndex("MemberId");
 
                     b.ToTable("BorrowedBooks");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BookDetailsId = 1,
-                            BorrowDate = new DateTime(2024, 9, 23, 14, 13, 33, 472, DateTimeKind.Local).AddTicks(2488),
-                            GenreSnapshot = "Fiction",
-                            IsReturned = false,
-                            MemberId = 1,
-                            ReturnDate = new DateTime(2024, 10, 7, 14, 13, 33, 472, DateTimeKind.Local).AddTicks(2499),
-                            TitleSnapshot = "The Great Gatsby",
-                            YearSnapshot = 1925
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BookDetailsId = 2,
-                            BorrowDate = new DateTime(2024, 9, 23, 14, 13, 33, 472, DateTimeKind.Local).AddTicks(2505),
-                            GenreSnapshot = "Fiction",
-                            IsReturned = false,
-                            MemberId = 2,
-                            ReturnDate = new DateTime(2024, 10, 7, 14, 13, 33, 472, DateTimeKind.Local).AddTicks(2508),
-                            TitleSnapshot = "To Kill a Mockingbird",
-                            YearSnapshot = 1960
-                        });
                 });
 
             modelBuilder.Entity("LibraryManagementSystemEF.Entities.Genre", b =>
@@ -295,96 +192,20 @@ namespace LibraryManagementSystemEF.Migrations
                         });
                 });
 
-            modelBuilder.Entity("LibraryManagementSystemEF.Entities.Librarian", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("DateOfEmployment")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("VARCHAR");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("VARCHAR");
-
-                    b.Property<int>("Salary")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.ToTable("Librarians");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DateOfEmployment = new DateTime(2024, 9, 23, 14, 13, 33, 472, DateTimeKind.Local).AddTicks(7808),
-                            Email = "ahmedSmith@exmaple.com",
-                            Name = "Ahmed Smith",
-                            Password = "ahmed123",
-                            Salary = 5000
-                        });
-                });
-
             modelBuilder.Entity("LibraryManagementSystemEF.Entities.LibraryBook", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId")
-                        .IsUnique();
+                    b.HasKey("BookId");
 
                     b.ToTable("LibraryBooks");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BookId = 1,
-                            Quantity = 10
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BookId = 2,
-                            Quantity = 10
-                        },
-                        new
-                        {
-                            Id = 3,
-                            BookId = 3,
-                            Quantity = 10
-                        });
                 });
 
-            modelBuilder.Entity("LibraryManagementSystemEF.Entities.Member", b =>
+            modelBuilder.Entity("LibraryManagementSystemEF.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -392,17 +213,9 @@ namespace LibraryManagementSystemEF.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("DateOfMembership")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 9, 23, 14, 13, 33, 473, DateTimeKind.Local).AddTicks(4986));
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("MembershipDuration")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -414,31 +227,133 @@ namespace LibraryManagementSystemEF.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("VARCHAR");
 
+                    b.Property<string>("UserType")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Members");
+                    b.ToTable("Users");
+
+                    b.HasDiscriminator<string>("UserType").HasValue("User");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("LibraryManagementSystemEF.Entities.Author", b =>
+                {
+                    b.HasBaseType("LibraryManagementSystemEF.Entities.User");
+
+                    b.Property<string>("Biography")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("VARCHAR");
+
+                    b.HasDiscriminator().HasValue("Author");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            DateOfMembership = new DateTime(2024, 9, 23, 14, 13, 33, 473, DateTimeKind.Local).AddTicks(5896),
-                            Email = "johnDoe@example.com",
-                            MembershipDuration = 30,
-                            Name = "John Doe",
-                            Password = "john123"
+                            Email = "AuthorOne@exmaple.com",
+                            Name = "Author One",
+                            Password = "password",
+                            Biography = "Author One Biography"
                         },
                         new
                         {
                             Id = 2,
-                            DateOfMembership = new DateTime(2024, 9, 23, 14, 13, 33, 473, DateTimeKind.Local).AddTicks(5912),
+                            Email = "AuthorTwo@exmaple.com",
+                            Name = "Author Two",
+                            Password = "password",
+                            Biography = "Author Two Biography"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Email = "AuthorThree@exmaple.com",
+                            Name = "Author Three",
+                            Password = "password",
+                            Biography = "Author Three Biography"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Email = "AuthorFour@exmaple.com",
+                            Name = "Author Four",
+                            Password = "password",
+                            Biography = "Author Four Biography"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Email = "AuthorFive@exmaple.com",
+                            Name = "Author Five",
+                            Password = "password",
+                            Biography = "Author Five Biography"
+                        });
+                });
+
+            modelBuilder.Entity("LibraryManagementSystemEF.Entities.Librarian", b =>
+                {
+                    b.HasBaseType("LibraryManagementSystemEF.Entities.User");
+
+                    b.Property<DateTime>("DateOfEmployment")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Salary")
+                        .HasColumnType("int");
+
+                    b.HasDiscriminator().HasValue("Librarian");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 8,
+                            Email = "ahmedSmith@exmaple.com",
+                            Name = "Ahmed Smith",
+                            Password = "ahmed123",
+                            DateOfEmployment = new DateTime(2024, 9, 23, 21, 50, 59, 126, DateTimeKind.Local).AddTicks(6632),
+                            Salary = 5000
+                        });
+                });
+
+            modelBuilder.Entity("LibraryManagementSystemEF.Entities.Member", b =>
+                {
+                    b.HasBaseType("LibraryManagementSystemEF.Entities.User");
+
+                    b.Property<DateTime>("DateOfMembership")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 9, 23, 21, 50, 59, 127, DateTimeKind.Local).AddTicks(8877));
+
+                    b.Property<int>("MembershipDuration")
+                        .HasColumnType("int");
+
+                    b.HasDiscriminator().HasValue("Member");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 6,
+                            Email = "johnDoe@example.com",
+                            Name = "John Doe",
+                            Password = "john123",
+                            DateOfMembership = new DateTime(2024, 9, 23, 21, 50, 59, 127, DateTimeKind.Local).AddTicks(9904),
+                            MembershipDuration = 30
+                        },
+                        new
+                        {
+                            Id = 7,
                             Email = "janDoe@example.com",
-                            MembershipDuration = 30,
                             Name = "Jane Doe",
-                            Password = "jane123"
+                            Password = "jane123",
+                            DateOfMembership = new DateTime(2024, 9, 23, 21, 50, 59, 127, DateTimeKind.Local).AddTicks(9921),
+                            MembershipDuration = 30
                         });
                 });
 

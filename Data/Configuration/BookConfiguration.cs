@@ -10,6 +10,9 @@ namespace LibraryManagementSystemEF.Data.Configuration
         {
             builder.HasKey(b => b.Id);
 
+            builder.Property(b => b.Id)
+                .ValueGeneratedOnAdd();
+
             builder.Property(b => b.Title).IsRequired().HasColumnType("VARCHAR").HasMaxLength(100);
 
             builder.Property(b => b.Year).IsRequired();
@@ -19,6 +22,7 @@ namespace LibraryManagementSystemEF.Data.Configuration
             builder.HasOne(b => b.Genre).WithMany().HasForeignKey(b => b.GenreId).OnDelete(DeleteBehavior.SetNull);
 
             builder.HasData(LoadBooks());
+
         }
 
         private Book[] LoadBooks()

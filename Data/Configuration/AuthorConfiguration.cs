@@ -8,19 +8,9 @@ namespace LibraryManagementSystemEF.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Author> builder)
         {
-            builder.HasKey(a => a.Id);
-
             builder.Property(a => a.Biography).IsRequired().HasColumnType("VARCHAR").HasMaxLength(500);
 
             builder.HasMany(a => a.Books).WithOne(b => b.Author).HasForeignKey(b => b.AuthorId).OnDelete(DeleteBehavior.Cascade);
-
-            builder.Property(a => a.Email).IsRequired();
-
-            builder.Property(a => a.Name).IsRequired().HasColumnType("VARCHAR").HasMaxLength(100);
-
-            builder.Property(a => a.Password).IsRequired().HasColumnType("VARCHAR").HasMaxLength(30);
-
-            builder.HasIndex(a => a.Email).IsUnique();
 
             builder.HasData(LoadAuthors());
         }

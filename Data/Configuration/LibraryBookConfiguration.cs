@@ -20,29 +20,9 @@ namespace LibraryManagementSystemEF.Data.Configuration
 
             builder.HasOne(b => b.Book).WithOne().HasForeignKey<LibraryBook>(b => b.BookId).OnDelete(DeleteBehavior.Cascade);
             
-            builder.HasData(LoadLibraryBooks());
         }
 
-        private LibraryBook[] LoadLibraryBooks()
-        {
-            return new LibraryBook[] {
-                new LibraryBook( )
-                {
-                    BookId = 1,
-                    Quantity = 10
-                },
-                new LibraryBook( )
-                {
-                    BookId = 2,
-                    Quantity = 10
-                },
-                new LibraryBook( )
-                {
-                    BookId = 3,
-                    Quantity = 10
-                },
-            };
-        }
+        
     }
 
 }

@@ -12,16 +12,7 @@ namespace LibraryManagementSystemEF.Data.Configuration
     internal class MemberConfigurations : IEntityTypeConfiguration<Member>
     {
         public void Configure(EntityTypeBuilder<Member> builder)
-        {
-            builder.HasKey(m => m.Id);
-
-            builder.Property(m => m.Email).IsRequired();
-
-            builder.Property(m => m.Name).IsRequired().HasColumnType("VARCHAR").HasMaxLength(100);
-
-            builder.Property(m => m.Password).IsRequired().HasColumnType("VARCHAR").HasMaxLength(30);
-
-            builder.HasIndex(m => m.Email).IsUnique();
+        {           
 
             builder.Property(m => m.DateOfMembership).IsRequired().HasDefaultValue(DateTime.Now);
 
@@ -35,7 +26,7 @@ namespace LibraryManagementSystemEF.Data.Configuration
             builder.HasData(
                 new Member
                 {
-                    Id = 1,
+                    Id = 6,
                     Name = "John Doe",
                     Email = "johnDoe@example.com",
                     Password = "john123",
@@ -44,7 +35,7 @@ namespace LibraryManagementSystemEF.Data.Configuration
                 },
                 new Member
                 {
-                    Id = 2,
+                    Id = 7,
                     Name = "Jane Doe",
                     Email = "janDoe@example.com",
                     Password = "jane123",

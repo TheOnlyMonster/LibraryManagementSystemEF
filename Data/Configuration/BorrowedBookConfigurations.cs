@@ -36,30 +36,6 @@ namespace LibraryManagementSystemEF.Data.Configuration
             builder.Property(bb => bb.ReturnDate).IsRequired();
 
             builder.Property(bb => bb.IsReturned).IsRequired().HasDefaultValue(false);
-
-            builder.HasData(
-                new BorrowedBook
-                {
-                    Id = 1,
-                    BookDetailsId = 1,
-                    MemberId = 1,
-                    TitleSnapshot = "The Great Gatsby",
-                    YearSnapshot = 1925,
-                    GenreSnapshot = "Fiction",
-                    ReturnDate = DateTime.Now.AddDays(14),
-                    IsReturned = false
-                },
-                new BorrowedBook
-                {
-                    Id = 2,
-                    BookDetailsId = 2,
-                    MemberId = 2,
-                    TitleSnapshot = "To Kill a Mockingbird",
-                    YearSnapshot = 1960,
-                    GenreSnapshot = "Fiction",
-                    ReturnDate = DateTime.Now.AddDays(14),
-                    IsReturned = false
-                });
         }
     }
 }

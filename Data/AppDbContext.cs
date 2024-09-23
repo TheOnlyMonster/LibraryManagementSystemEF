@@ -15,12 +15,7 @@ namespace LibraryManagementSystemEF.Data
 
         public DbSet<Book> Books { get; set; }
 
-        public DbSet<Author> Authors { get; set; }
-
-        public DbSet<Member> Members { get; set; }
-
-
-        public DbSet<Librarian> Librarians { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public DbSet<BorrowedBook> BorrowedBooks { get; set; }
 
@@ -43,6 +38,25 @@ namespace LibraryManagementSystemEF.Data
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 
+        }
+
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        {
+            var newBooks = ChangeTracker.Entries<Book>()
+            .Where(e => e.State == EntityState.Added)
+            .Select(e => e.Entity);
+
+            foreach (var book in newBooks)
+            {
+                LibraryBooks.Add(new LibraryBook
+                {
+                    BookId = book.Id, 
+                    Quantity = 0, 
+                    Book = book
+                });
+            }
+
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
     }

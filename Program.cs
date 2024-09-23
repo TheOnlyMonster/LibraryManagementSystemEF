@@ -1,16 +1,22 @@
-﻿using LibraryManagementSystemEF.Data;
+﻿using LibraryManagementSystemEF.Controllers;
+using LibraryManagementSystemEF.Data;
+using LibraryManagementSystemEF.Entities;
 using Microsoft.Extensions.Configuration;
 
 namespace LibraryManagementSystemEF
 {
     internal class Program
     {
+
         static void Main(string[] args)
         {
-            using (var context = new AppDbContext())
+            while (true)
             {
-                context.Database.EnsureCreated();
+                AppController.Start();
             }
+
         }
+
+        
     }
 }
