@@ -1,5 +1,6 @@
 ﻿using LibraryManagementSystemEF.Data;
 using LibraryManagementSystemEF.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagementSystemEF.Controllers
 {
@@ -147,7 +148,10 @@ namespace LibraryManagementSystemEF.Controllers
 
                 var bookId = int.Parse(Console.ReadLine());
 
-                var bookToBorrow = context.LibraryBooks.FirstOrDefault(b => b.BookId == bookId);
+                LibraryBook? bookToBorrow = context.LibraryBooks
+                .Include(b => b.Book)
+                .Include(b => b.Book.Genre)
+                .FirstOrDefault(b => b.BookId == bookId);
 
 
 
@@ -165,21 +169,33 @@ namespace LibraryManagementSystemEF.Controllers
 
 
 
-                var borrowedBook = new BorrowedBook
+                BorrowedBook borrowedBook = new BorrowedBook
                 {
-                    BookDetails = bookToBorrow.Book,
-                    Member = (Member)AppController.currentUser,
                     TitleSnapshot = bookToBorrow.Book.Title,
                     YearSnapshot = bookToBorrow.Book.Year,
                     GenreSnapshot = bookToBorrow.Book.Genre.ToString(),
                     ReturnDate = DateTime.Now.AddDays(((Member)AppController.currentUser).MembershipDuration),
+                    MemberId = AppController.currentUser.Id,
+                    BookDetailsId = bookToBorrow.BookId,
+                    IsReturned = false,
                 };
+
 
                 context.BorrowedBooks.Add(borrowedBook);
 
+                ((Member)AppController.currentUser).BorrowedBooks.Add(borrowedBook);
+
                 bookToBorrow.Quantity--;
 
-                context.SaveChanges();
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return;
+                }
 
                 Console.WriteLine("Book borrowed successfully");
             }

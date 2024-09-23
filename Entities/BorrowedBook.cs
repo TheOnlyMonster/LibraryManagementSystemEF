@@ -23,5 +23,10 @@
         public DateTime ReturnDate { get; set; }
 
         public bool IsReturned { get; set; }
+
+        override public string ToString()
+        {
+            return $"Id: {Id}, Title: {TitleSnapshot}, Year: {YearSnapshot}, Genre: {GenreSnapshot}, Borrow Date: {BorrowDate}, Return Date: {ReturnDate}, Is Returned: {IsReturned}, Member {Member}";
+        }
     }
 }

@@ -10,6 +10,8 @@ namespace LibraryManagementSystemEF.Data.Configuration
         {
             builder.HasKey(u => u.Id);
 
+            builder.Property(u => u.Id).ValueGeneratedOnAdd();
+
             builder.Property(u => u.Name).IsRequired().HasColumnType("VARCHAR").HasMaxLength(100);
 
             builder.Property(u => u.Email).IsRequired();

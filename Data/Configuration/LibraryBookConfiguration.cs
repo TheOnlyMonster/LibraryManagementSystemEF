@@ -16,6 +16,8 @@ namespace LibraryManagementSystemEF.Data.Configuration
 
             builder.HasKey(b => b.BookId);
 
+            builder.Property(b => b.BookId).ValueGeneratedOnAdd();
+
             builder.Property(b => b.Quantity).IsRequired();
 
             builder.HasOne(b => b.Book).WithOne().HasForeignKey<LibraryBook>(b => b.BookId).OnDelete(DeleteBehavior.Cascade);

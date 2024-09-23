@@ -15,6 +15,8 @@ namespace LibraryManagementSystemEF.Data.Configuration
         {
             builder.HasKey(bb => bb.Id);
 
+            builder.Property(bb => bb.Id).ValueGeneratedOnAdd();
+
             builder.HasOne(bb => bb.BookDetails)
                 .WithMany()
                 .HasForeignKey(bb => bb.BookDetailsId)

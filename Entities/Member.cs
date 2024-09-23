@@ -8,5 +8,10 @@
 
         public ICollection<BorrowedBook> BorrowedBooks { get; set; } = [];
 
+        public override string ToString()
+        {
+            return string.Join(", ", new string[] { base.ToString(), $"Date of Membership: {DateOfMembership}", $"Membership Duration: {MembershipDuration}" });
+        }
+
     }
 }
