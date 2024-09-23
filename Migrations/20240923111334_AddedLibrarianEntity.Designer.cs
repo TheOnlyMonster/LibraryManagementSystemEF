@@ -4,6 +4,7 @@ using LibraryManagementSystemEF.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryManagementSystemEF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240923111334_AddedLibrarianEntity")]
+    partial class AddedLibrarianEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,7 +189,7 @@ namespace LibraryManagementSystemEF.Migrations
                     b.Property<DateTime>("BorrowDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 9, 23, 14, 21, 7, 654, DateTimeKind.Local).AddTicks(6659));
+                        .HasDefaultValue(new DateTime(2024, 9, 23, 14, 13, 33, 472, DateTimeKind.Local).AddTicks(1467));
 
                     b.Property<string>("GenreSnapshot")
                         .IsRequired()
@@ -225,11 +228,11 @@ namespace LibraryManagementSystemEF.Migrations
                         {
                             Id = 1,
                             BookDetailsId = 1,
-                            BorrowDate = new DateTime(2024, 9, 23, 14, 21, 7, 654, DateTimeKind.Local).AddTicks(7668),
+                            BorrowDate = new DateTime(2024, 9, 23, 14, 13, 33, 472, DateTimeKind.Local).AddTicks(2488),
                             GenreSnapshot = "Fiction",
                             IsReturned = false,
                             MemberId = 1,
-                            ReturnDate = new DateTime(2024, 10, 7, 14, 21, 7, 654, DateTimeKind.Local).AddTicks(7679),
+                            ReturnDate = new DateTime(2024, 10, 7, 14, 13, 33, 472, DateTimeKind.Local).AddTicks(2499),
                             TitleSnapshot = "The Great Gatsby",
                             YearSnapshot = 1925
                         },
@@ -237,11 +240,11 @@ namespace LibraryManagementSystemEF.Migrations
                         {
                             Id = 2,
                             BookDetailsId = 2,
-                            BorrowDate = new DateTime(2024, 9, 23, 14, 21, 7, 654, DateTimeKind.Local).AddTicks(7683),
+                            BorrowDate = new DateTime(2024, 9, 23, 14, 13, 33, 472, DateTimeKind.Local).AddTicks(2505),
                             GenreSnapshot = "Fiction",
                             IsReturned = false,
                             MemberId = 2,
-                            ReturnDate = new DateTime(2024, 10, 7, 14, 21, 7, 654, DateTimeKind.Local).AddTicks(7685),
+                            ReturnDate = new DateTime(2024, 10, 7, 14, 13, 33, 472, DateTimeKind.Local).AddTicks(2508),
                             TitleSnapshot = "To Kill a Mockingbird",
                             YearSnapshot = 1960
                         });
@@ -331,7 +334,7 @@ namespace LibraryManagementSystemEF.Migrations
                         new
                         {
                             Id = 1,
-                            DateOfEmployment = new DateTime(2024, 9, 23, 14, 21, 7, 655, DateTimeKind.Local).AddTicks(2376),
+                            DateOfEmployment = new DateTime(2024, 9, 23, 14, 13, 33, 472, DateTimeKind.Local).AddTicks(7808),
                             Email = "ahmedSmith@exmaple.com",
                             Name = "Ahmed Smith",
                             Password = "ahmed123",
@@ -341,29 +344,41 @@ namespace LibraryManagementSystemEF.Migrations
 
             modelBuilder.Entity("LibraryManagementSystemEF.Entities.LibraryBook", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("BookId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId")
+                        .IsUnique();
 
                     b.ToTable("LibraryBooks");
 
                     b.HasData(
                         new
                         {
+                            Id = 1,
                             BookId = 1,
                             Quantity = 10
                         },
                         new
                         {
+                            Id = 2,
                             BookId = 2,
                             Quantity = 10
                         },
                         new
                         {
+                            Id = 3,
                             BookId = 3,
                             Quantity = 10
                         });
@@ -380,7 +395,7 @@ namespace LibraryManagementSystemEF.Migrations
                     b.Property<DateTime>("DateOfMembership")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 9, 23, 14, 21, 7, 656, DateTimeKind.Local).AddTicks(5952));
+                        .HasDefaultValue(new DateTime(2024, 9, 23, 14, 13, 33, 473, DateTimeKind.Local).AddTicks(4986));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -410,7 +425,7 @@ namespace LibraryManagementSystemEF.Migrations
                         new
                         {
                             Id = 1,
-                            DateOfMembership = new DateTime(2024, 9, 23, 14, 21, 7, 656, DateTimeKind.Local).AddTicks(6840),
+                            DateOfMembership = new DateTime(2024, 9, 23, 14, 13, 33, 473, DateTimeKind.Local).AddTicks(5896),
                             Email = "johnDoe@example.com",
                             MembershipDuration = 30,
                             Name = "John Doe",
@@ -419,7 +434,7 @@ namespace LibraryManagementSystemEF.Migrations
                         new
                         {
                             Id = 2,
-                            DateOfMembership = new DateTime(2024, 9, 23, 14, 21, 7, 656, DateTimeKind.Local).AddTicks(6855),
+                            DateOfMembership = new DateTime(2024, 9, 23, 14, 13, 33, 473, DateTimeKind.Local).AddTicks(5912),
                             Email = "janDoe@example.com",
                             MembershipDuration = 30,
                             Name = "Jane Doe",

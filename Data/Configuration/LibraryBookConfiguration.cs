@@ -14,7 +14,7 @@ namespace LibraryManagementSystemEF.Data.Configuration
         public void Configure(EntityTypeBuilder<LibraryBook> builder)
         {
 
-            builder.HasKey(b => b.Id);
+            builder.HasKey(b => b.BookId);
 
             builder.Property(b => b.Quantity).IsRequired();
 
@@ -28,19 +28,16 @@ namespace LibraryManagementSystemEF.Data.Configuration
             return new LibraryBook[] {
                 new LibraryBook( )
                 {
-                    Id = 1,
                     BookId = 1,
                     Quantity = 10
                 },
                 new LibraryBook( )
                 {
-                    Id = 2,
                     BookId = 2,
                     Quantity = 10
                 },
                 new LibraryBook( )
                 {
-                    Id = 3,
                     BookId = 3,
                     Quantity = 10
                 },

@@ -20,7 +20,7 @@ namespace LibraryManagementSystemEF.Data
         public DbSet<Member> Members { get; set; }
 
 
-        //public DbSet<Librarian> Librarians { get; set; }
+        public DbSet<Librarian> Librarians { get; set; }
 
         public DbSet<BorrowedBook> BorrowedBooks { get; set; }
 
