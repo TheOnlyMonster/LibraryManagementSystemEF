@@ -11,3 +11,4 @@ I applied the following concepts in this project:
 - Unit of Work Pattern
 - MSSQL Server
 - LINQ
+- Transactions
