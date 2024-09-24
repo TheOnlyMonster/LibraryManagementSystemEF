@@ -17,6 +17,8 @@ namespace LibraryManagementSystemEF.Data
 
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Genre> Genres { get; set; }
+
         public DbSet<BorrowedBook> BorrowedBooks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -40,24 +42,31 @@ namespace LibraryManagementSystemEF.Data
 
         }
 
-        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        public override int SaveChanges()
         {
             var newBooks = ChangeTracker.Entries<Book>()
-            .Where(e => e.State == EntityState.Added)
-            .Select(e => e.Entity);
+                .Where(e => e.State == EntityState.Added)
+                .Select(e => e.Entity)
+                .ToList();
+
+            var result = base.SaveChanges();
+
+            throw new Exception("An error occurred while saving the changes.");
 
             foreach (var book in newBooks)
             {
                 LibraryBooks.Add(new LibraryBook
                 {
-                    BookId = book.Id,
+                    BookId = book.Id, 
                     Quantity = 0,
                 });
             }
 
-
-            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+            return base.SaveChanges();
         }
+
+
+
 
     }
 }

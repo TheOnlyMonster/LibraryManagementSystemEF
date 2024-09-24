@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagementSystemEF.Controllers
 {
-    
+
     internal static class MemberController
     {
         public static void Start()

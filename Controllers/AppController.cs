@@ -57,8 +57,12 @@ namespace LibraryManagementSystemEF.Controllers
             {
                 Console.Clear();
                 MemberController.Start();
+            }else if (currentUser is Author)
+            {
+                Console.Clear();
+                AuthorController.Start();
             }
-            
+
         }
 
         public static void SignUp()
