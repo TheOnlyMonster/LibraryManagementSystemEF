@@ -60,7 +60,7 @@ namespace LibraryManagementSystemEF.Controllers
             using (var context = new AppDbContext())
             {
                 var totalBorrowedBooks = context.BorrowedBooks
-                    .Where(bb => bb.MemberId == AppController.currentUser.Id)
+                    .Where(bb => bb.MemberId == AppController.currentUser.Id && bb.IsReturned == false)
                     .Count();
                 var totalPages = (int)Math.Ceiling(totalBorrowedBooks / (double)pageSize);
 
@@ -148,6 +148,15 @@ namespace LibraryManagementSystemEF.Controllers
 
                 var bookId = int.Parse(Console.ReadLine());
 
+                var isAlreadyBorrowed = context.BorrowedBooks
+                    .Any(bb => bb.BookDetailsId == bookId && bb.MemberId == AppController.currentUser.Id && bb.IsReturned == false);
+
+                if (isAlreadyBorrowed)
+                {
+                    Console.WriteLine("You have already borrowed this book");
+                    return;
+                }
+
                 LibraryBook? bookToBorrow = context.LibraryBooks
                 .Include(b => b.Book)
                 .Include(b => b.Book.Genre)
@@ -203,13 +212,25 @@ namespace LibraryManagementSystemEF.Controllers
 
         private static void ReturnBook()
         {
+            if(AppController.currentUser == null)
+            {
+                Console.WriteLine("Invalid member");
+                return;
+            }
+
+
             using (var context = new AppDbContext())
             {
                 Console.WriteLine("Please enter the id of the book you want to return");
 
                 var bookId = int.Parse(Console.ReadLine());
 
-                var borrowedBook = context.BorrowedBooks.FirstOrDefault(bb => bb.Id == bookId);
+                var borrowedBook = context.BorrowedBooks
+                    .Include(bb => bb.BookDetails)
+                .FirstOrDefault(bb => bb.Id == bookId 
+                && bb.MemberId == AppController.currentUser.Id
+                && bb.IsReturned == false);
+
 
                 if (borrowedBook == null)
                 {
@@ -217,11 +238,21 @@ namespace LibraryManagementSystemEF.Controllers
                     return;
                 }
 
-                context.BorrowedBooks.Remove(borrowedBook);
+
 
                 var bookToReturn = context.LibraryBooks.FirstOrDefault(b => b.BookId == borrowedBook.BookDetails.Id);
 
+                if (bookToReturn == null) {
+                    Console.WriteLine("Invalid book id");
+                    return;
+                }
+
+                borrowedBook.IsReturned = true;
+
                 bookToReturn.Quantity++;
+
+                ((Member)AppController.currentUser).BorrowedBooks.Remove(borrowedBook);
+
 
                 context.SaveChanges();
 

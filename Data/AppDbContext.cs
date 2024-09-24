@@ -28,8 +28,7 @@ namespace LibraryManagementSystemEF.Data
 
             var connectionString = configuration.GetSection("constr").Value;
 
-            optionsBuilder.UseSqlServer(connectionString)
-                .EnableSensitiveDataLogging();
+            optionsBuilder.UseSqlServer(connectionString);
 
         }
 
@@ -41,24 +40,24 @@ namespace LibraryManagementSystemEF.Data
 
         }
 
-        //public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
-        //{
-        //    var newBooks = ChangeTracker.Entries<Book>()
-        //    .Where(e => e.State == EntityState.Added)
-        //    .Select(e => e.Entity);
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        {
+            var newBooks = ChangeTracker.Entries<Book>()
+            .Where(e => e.State == EntityState.Added)
+            .Select(e => e.Entity);
 
-        //    foreach (var book in newBooks)
-        //    {
-        //        LibraryBooks.Add(new LibraryBook
-        //        {
-        //            BookId = book.Id, 
-        //            Quantity = 0, 
-        //            Book = book
-        //        });
-        //    }
+            foreach (var book in newBooks)
+            {
+                LibraryBooks.Add(new LibraryBook
+                {
+                    BookId = book.Id,
+                    Quantity = 0,
+                });
+            }
 
-        //    return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
-        //}
+
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
 
     }
 }
