@@ -7,6 +7,7 @@ This is a simple library management system that allows users to add, edit, and d
 I applied the following concepts in this project:
 
 - Entity Framework
+- OOP Principles
 - Code First Approach
 - Unit of Work Pattern
 - MSSQL Server
