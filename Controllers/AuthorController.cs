@@ -137,7 +137,27 @@ namespace LibraryManagementSystemEF.Controllers
                             if (selectedIndex < books.Count - 1) selectedIndex++;
                             break;
                         case ConsoleKey.Enter:
-                            ModifyBookDetails(books[selectedIndex]); 
+                            Console.Clear();
+                            Console.WriteLine("What would you like to do with this book?");
+                            Console.WriteLine($"1. Modify Book");
+                            Console.WriteLine($"2. Delete Book");
+                            Console.Write("Enter your choice (1 or 2): ");
+
+                            var choice = Console.ReadLine();
+
+                            if (choice == "1")
+                            {
+                                ModifyBookDetails(books[selectedIndex]);
+                            }
+                            else if (choice == "2")
+                            {
+                                DeleteBook(books[selectedIndex]);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid choice. Press any key to return.");
+                                Console.ReadKey();
+                            }
                             break;
                         case ConsoleKey.Escape:
                             Console.Clear();
@@ -147,7 +167,43 @@ namespace LibraryManagementSystemEF.Controllers
                 }
             }
         }
+        private static void DeleteBook(Book book)
+        {
+            Console.Clear();
+            Console.WriteLine($"Are you sure you want to delete the book '{book.Title}'? (y/n)");
 
+            var confirmation = Console.ReadLine();
+            if (confirmation?.ToLower() == "y")
+            {
+                using (var context = new AppDbContext())
+                {
+                    using var transaction = context.Database.BeginTransaction();
+
+                    try
+                    {
+                        book.IsDeleted = true;
+                        context.Books.Update(book);
+
+                        context.SaveChanges();
+
+                        transaction.Commit();
+
+                        Console.WriteLine("Book deleted successfully. Press any key to return.");
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Delete operation cancelled. Press any key to return.");
+            }
+
+            Console.ReadKey();
+        }
         private static void ModifyBookDetails(Book book)
         {
             Console.Clear();

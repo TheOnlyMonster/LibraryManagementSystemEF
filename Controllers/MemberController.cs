@@ -160,7 +160,7 @@ namespace LibraryManagementSystemEF.Controllers
                 LibraryBook? bookToBorrow = context.LibraryBooks
                 .Include(b => b.Book)
                 .Include(b => b.Book.Genre)
-                .FirstOrDefault(b => b.BookId == bookId);
+                .FirstOrDefault(b => b.BookId == bookId && b.Book.IsDeleted == false);
 
 
 

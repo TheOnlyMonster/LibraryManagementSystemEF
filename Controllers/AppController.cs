@@ -143,7 +143,8 @@ namespace LibraryManagementSystemEF.Controllers
 
             using (var context = new AppDbContext())
             {
-                var allBooks = context.Books.Count();
+                var allBooks = context.Books.Where(b => b.IsDeleted == false).Count();
+
                 var totalPages = (int)Math.Ceiling(allBooks / (double)pageSize);
 
                 if(allBooks == 0)
@@ -166,6 +167,7 @@ namespace LibraryManagementSystemEF.Controllers
                     var books = context.Books
                         .Skip((pageNumber - 1) * pageSize)
                         .Take(pageSize)
+                        .Where(b => b.IsDeleted == false)
                         .Include(b => b.Genre)
                         .Include(b => b.Author);
 
