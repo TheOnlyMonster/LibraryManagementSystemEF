@@ -12,3 +12,5 @@ I applied the following concepts in this project:
 - MSSQL Server
 - LINQ
 - Transactions
+- Interceptors
+- Pagination

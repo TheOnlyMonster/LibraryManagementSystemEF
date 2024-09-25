@@ -1,6 +1,8 @@
-﻿namespace LibraryManagementSystemEF.Entities
+﻿using LibraryManagementSystemEF.Entities.Contract;
+
+namespace LibraryManagementSystemEF.Entities
 {
-    internal class Book
+    internal class Book : ISoftDeletable
     {
         public int Id { get; set; }
 
@@ -16,5 +18,6 @@
 
         public Author Author { get; set; }
 
+        public bool IsDeleted { get; set; }
     }
 }

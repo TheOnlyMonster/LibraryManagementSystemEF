@@ -51,7 +51,6 @@ namespace LibraryManagementSystemEF.Data
 
             var result = base.SaveChanges();
 
-            throw new Exception("An error occurred while saving the changes.");
 
             foreach (var book in newBooks)
             {
@@ -64,8 +63,6 @@ namespace LibraryManagementSystemEF.Data
 
             return base.SaveChanges();
         }
-
-
 
 
     }

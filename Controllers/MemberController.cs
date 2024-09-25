@@ -82,7 +82,7 @@ namespace LibraryManagementSystemEF.Controllers
                     Console.Clear();
 
                     var borrowedBooks = context.BorrowedBooks
-                        .Where(bb => bb.MemberId == AppController.currentUser.Id)
+                        .Where(bb => bb.MemberId == AppController.currentUser.Id & bb.IsReturned == false)
                         .Skip((pageNumber - 1) * pageSize)
                         .Take(pageSize);
 

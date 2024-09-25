@@ -20,7 +20,7 @@ namespace LibraryManagementSystemEF.Data.Configuration
             builder.HasOne(bb => bb.BookDetails)
                 .WithMany()
                 .HasForeignKey(bb => bb.BookDetailsId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(bb => bb.Member)
                 .WithMany(m => m.BorrowedBooks)
