@@ -9,7 +9,7 @@ namespace LibraryManagementSystemEF.Controllers
     {
         public static void Start()
         {
-            while(AppController.currentUser != null)
+            while (AppController.currentUser != null)
             {
                 Console.WriteLine("Welcome to the author dashboard!");
                 Console.WriteLine("Please enter a number.");
@@ -167,6 +167,7 @@ namespace LibraryManagementSystemEF.Controllers
                 }
             }
         }
+
         private static void DeleteBook(Book book)
         {
             Console.Clear();
@@ -204,6 +205,7 @@ namespace LibraryManagementSystemEF.Controllers
 
             Console.ReadKey();
         }
+
         private static void ModifyBookDetails(Book book)
         {
             Console.Clear();
@@ -227,7 +229,7 @@ namespace LibraryManagementSystemEF.Controllers
             Console.WriteLine($"Current Genre: {book.Genre.Name}");
             Console.Write("Enter new Genre (leave blank to keep current): ");
             string newGenre = Console.ReadLine();
-            
+
 
 
             using (var context = new AppDbContext())
@@ -274,7 +276,7 @@ namespace LibraryManagementSystemEF.Controllers
                     Console.WriteLine(ex.Message);
                 }
             }
-            
+
             Console.ReadKey();
         }
 
@@ -309,7 +311,7 @@ namespace LibraryManagementSystemEF.Controllers
                         };
 
                         context.Genres.Add(genreExists);
-                        context.SaveChanges(); 
+                        context.SaveChanges();
                     }
 
                     var book = new Book
@@ -321,7 +323,7 @@ namespace LibraryManagementSystemEF.Controllers
                     };
 
                     context.Books.Add(book);
-                    context.SaveChanges(); 
+                    context.SaveChanges();
 
                     transaction.Commit();
 

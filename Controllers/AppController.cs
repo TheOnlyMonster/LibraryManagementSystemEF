@@ -61,6 +61,10 @@ namespace LibraryManagementSystemEF.Controllers
             {
                 Console.Clear();
                 AuthorController.Start();
+            }else if ( currentUser is Librarian)
+            {
+                Console.Clear();
+                LibrarianController.Start();
             }
 
         }
